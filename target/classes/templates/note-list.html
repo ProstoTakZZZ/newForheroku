@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Notes</title>
+    <style type="text/css">
+
+        table {
+            border-collapse: collapse;
+        }
+        th {
+            background: #cff8f8;
+            text-align: left;
+        }
+        td, th {
+            border: 1px solid #800;
+            padding: 4px;
+        }
+
+        a {
+            text-decoration: none;
+            display: inline-block;
+            width: 140px;
+            height: 45px;
+            line-height: 45px;
+            border-radius: 45px;
+            margin: 10px 20px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 11px;
+            text-transform: uppercase;
+            text-align: center;
+            letter-spacing: 3px;
+            font-weight: 600;
+            color: #524f4e;
+            background: white;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, .1);
+            transition: .3s;
+        }
+        a:hover {
+            background: #2EE59D;
+            box-shadow: 0 15px 20px rgba(46, 229, 157, .4);
+            color: white;
+            transform: translateY(-7px);
+        }
+
+    </style>
+</head>
+<body style="background-color: #fdefc7">
+<div th:switch="${notes}">
+    <h2 th:case="null">No  found!</h2>
+    <div th:case="*">
+        <h2 align="center">Notes</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Title</th>
+                <th>Content</th>
+                <th>Date</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="note : ${notes}">
+                <td th:text="${note.title}"></td>
+                <td th:text="${note.content}"></td>
+                <td th:text="${note.date}"></td>
+                <td><a th:href="@{note-update/{id}(id=${note.id})}">Edit</a></td>
+                <td><a th:href="@{note-delete/{id}(id=${note.id})}">Delete</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <p><a href="/note-create">Create note</a></p>
+</div>
+</body>
+</html>
